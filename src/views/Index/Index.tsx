@@ -21,6 +21,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BASE_URL} from 'react-native-dotenv';
 import {observer} from 'mobx-react';
+import Toast from 'react-native-root-toast';
 import userStore from '../../store/user';
 
 function Index({props, navigation}: any) {
@@ -40,6 +41,12 @@ function Index({props, navigation}: any) {
   const handleLogin = () => {
     const user = {username, age};
     userStore.setUser(user);
+    Toast.show('登录成功', {
+      position: Toast.positions.CENTER,
+      onHidden: () => {
+        console.log('弹窗关闭');
+      },
+    });
   };
 
   const docsNavigate = () => {

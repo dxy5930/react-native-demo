@@ -5,7 +5,7 @@ import {Colors} from 'react-native/Libraries/NewAppScreen';
 import AppNavigator from './src/route/index';
 import {Provider} from 'mobx-react';
 import userStore from './src/store/user';
-
+import {RootSiblingParent} from 'react-native-root-siblings';
 function App(): React.JSX.Element {
   useEffect(() => {
     // Load user information when the app starts
@@ -19,15 +19,17 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <Provider userStore={userStore}>
-        <AppNavigator></AppNavigator>
-      </Provider>
-    </SafeAreaView>
+    <RootSiblingParent>
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Provider userStore={userStore}>
+          <AppNavigator></AppNavigator>
+        </Provider>
+      </SafeAreaView>
+    </RootSiblingParent>
   );
 }
 

@@ -2,7 +2,6 @@
 
 import { action, makeAutoObservable } from 'mobx';
 import tool from '../utils/index'
-import userInfo from '../common/types/userStore'
 class UserStore {
     user = null;
 
