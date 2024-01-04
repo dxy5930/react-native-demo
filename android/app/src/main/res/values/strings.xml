@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">reactNativeDemo</string>
+    <string name="app_name_debug">reactNativeDemo_开发版</string>
+    <string name="app_name_test">reactNativeDemo_测试版</string>
+    <string name="app_name_stage">reactNativeDemo_预演版</string>
+
+</resources>
