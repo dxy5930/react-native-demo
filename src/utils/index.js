@@ -1,8 +1,8 @@
-import {Dimensions, Platform, PixelRatio} from 'react-native';
+import { Dimensions, Platform, PixelRatio } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {FontSize} from './fontSize';
-import {RNFS} from 'react-native-fs';
-let {width, height} = Dimensions.get('window');
+import { FontSize } from './fontSize';
+import { RNFS } from 'react-native-fs';
+let { width, height } = Dimensions.get('window');
 let pixelRatio = PixelRatio.get();
 let screenPxW = PixelRatio.getPixelSizeForLayoutSize(width);
 let basePx = 1920;
@@ -76,7 +76,7 @@ const downloadAndGetImageUrl = (name, source_url) => {
   return RNFS.exists(fileName)
     .then(response => {
       if (response) {
-        return {uri: fileName};
+        return { uri: fileName };
       } else {
         let destination_path = '/' + name + '.jpg';
         return RNFS.downloadFile({
@@ -84,15 +84,15 @@ const downloadAndGetImageUrl = (name, source_url) => {
           toFile: RNFS.DocumentDirectoryPath + destination_path,
         })
           .promise.then(response => {
-            return {uri: fileName};
+            return { uri: fileName };
           })
           .catch(error => {
-            return {uri: source_url};
+            return { uri: source_url };
           });
       }
     })
     .catch(error => {
-      return {uri: source_url};
+      return { uri: source_url };
     });
 };
 
@@ -155,6 +155,16 @@ const getObjData = async key => {
   }
 };
 
+const clearStorage = async (key) => {
+  try {
+    await AsyncStorage.removeItem('@MyApp_key')
+  } catch (e) {
+    // remove error
+  }
+}
+
+
+
 export default {
   SCREEN_WIDTH: width,
   SCREEN_HEIGHT: height,
@@ -167,6 +177,7 @@ export default {
   storeObjData,
   getStringData,
   getObjData,
+  clearStorage,
   downloadAndGetImageUrl,
   compareVersion,
   judgeType,

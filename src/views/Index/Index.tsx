@@ -1,4 +1,4 @@
-import {Linking, StyleSheet, View} from 'react-native';
+import {Linking, StyleSheet, TextInput, View} from 'react-native';
 import {getData} from '../../axios/api';
 import {useEffect, useState} from 'react';
 import {ApiResponse} from '../../common/types/index';
@@ -20,6 +20,8 @@ import {Header as HeaderRNE, HeaderProps, Icon} from '@rneui/themed';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BASE_URL} from 'react-native-dotenv';
+import {observer} from 'mobx-react';
+import userStore from '../../store/user';
 
 function Index({props, navigation}: any) {
   const [test, setTest] = useState<resDemo>({} as resDemo);
@@ -28,11 +30,17 @@ function Index({props, navigation}: any) {
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [username, setUsername] = useState('');
+  const [age, setAge] = useState('');
 
   useEffect(() => {
     getDataTest();
-    console.log(AppInfoModule);
   }, []);
+
+  const handleLogin = () => {
+    const user = {username, age};
+    userStore.setUser(user);
+  };
 
   const docsNavigate = () => {
     Linking.openURL(`https://www.baidu.com`);
@@ -44,10 +52,6 @@ function Index({props, navigation}: any) {
 
   const toggleDialog1 = () => {
     setVisible1(!visible1);
-  };
-
-  const ratingCompleted = (rating: number) => {
-    console.log('Rating is: ' + rating);
   };
 
   const getDataTest = async () => {
@@ -115,24 +119,19 @@ function Index({props, navigation}: any) {
           <Text h1>Cart</Text>
         </TabView.Item>
       </TabView>
-      <Skeleton width={120} height={40} />
-      <Skeleton circle width={40} height={40} />
-      <Tooltip
-        visible={open}
-        onOpen={() => setOpen(true)}
-        onClose={() => setOpen(false)}
-        popover={<Text style={{color: '#fff'}}>Tooltip text</Text>}>
-        <Text>Click me</Text>
-      </Tooltip>
-      <Rating
-        type="custom"
-        ratingColor="#3498db"
-        ratingCount={10}
-        imageSize={30}
-        onFinishRating={ratingCompleted}
-        showRating
-        style={{paddingVertical: 50}}
+
+      <TextInput
+        placeholder="Enter your username"
+        value={username}
+        onChangeText={setUsername}
       />
+      <TextInput
+        placeholder="Enter your age"
+        value={age}
+        onChangeText={setAge}
+      />
+      <Button title="Login" onPress={handleLogin} />
+
       <Text style={{color: '#000'}}>{BASE_URL}</Text>
       <Text style={{color: '#000'}}>id：{test.id}</Text>
       <Text style={{color: '#000'}}>tag：{test.tag}</Text>
@@ -140,7 +139,10 @@ function Index({props, navigation}: any) {
       <Text style={{color: '#000'}}>content：{test.content}</Text>
       <Text style={{color: '#000'}}>created_at：{test.created_at}</Text>
       <Text style={{color: '#000'}}>updated_at：{test.updated_at}</Text>
-      <Button title="Go to Mine" onPress={() => navigation.navigate('Classify')} />
+      <Button
+        title="Go to Mine"
+        onPress={() => navigation.navigate('Classify')}
+      />
       <Button
         title="Open Simple Dialog"
         onPress={toggleDialog1}
@@ -226,4 +228,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-export default Index;
+export default observer(Index);
