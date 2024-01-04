@@ -36,7 +36,7 @@ function BottomTabs() {
           headerShown: false,
           tabBarLabel: '首页',
           tabBarIcon: ({color, size}) => (
-            <Icon name="delete" color={'#e00000'} size={30} />
+            <Icon name="delete" color={color} size={size} />
           ),
           tabBarBadge: 3,
         }}
@@ -47,7 +47,7 @@ function BottomTabs() {
         options={{
           tabBarLabel: '分类',
           tabBarIcon: ({color, size}) => (
-            <Icon name="delete" color={'#e00000'} size={30} />
+            <Icon name="delete" color={color} size={size} />
           ),
           tabBarBadge: 3,
         }}
@@ -58,7 +58,7 @@ function BottomTabs() {
         options={{
           tabBarLabel: '我的',
           tabBarIcon: ({color, size}) => (
-            <Icon name="delete" color={'#e00000'} size={30} />
+            <Icon name="delete" color={color} size={size} />
           ),
           tabBarBadge: 3,
         }}
