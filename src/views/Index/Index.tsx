@@ -40,7 +40,7 @@ function Index({props, navigation}: any) {
 
   const handleLogin = () => {
     const user = {username, age};
-    userStore.setUser(user);
+    userStore.login(user);
     Toast.show('登录成功', {
       position: Toast.positions.CENTER,
       onHidden: () => {
@@ -94,26 +94,15 @@ function Index({props, navigation}: any) {
           setIndex(e);
           console.log(e);
         }}
+        dense
         indicatorStyle={{
-          backgroundColor: 'white',
+          backgroundColor: 'green',
           height: 3,
         }}
-        variant="primary">
-        <Tab.Item
-          title="Recent"
-          titleStyle={{fontSize: 12}}
-          icon={{name: 'timer', type: 'ionicon', color: 'white'}}
-        />
-        <Tab.Item
-          title="favorite"
-          titleStyle={{fontSize: 12}}
-          icon={{name: 'heart', type: 'ionicon', color: 'white'}}
-        />
-        <Tab.Item
-          title="cart"
-          titleStyle={{fontSize: 12}}
-          icon={{name: 'cart', type: 'ionicon', color: 'white'}}
-        />
+        variant="default">
+        <Tab.Item title="Recent" titleStyle={{fontSize: 12}} />
+        <Tab.Item title="favorite" titleStyle={{fontSize: 12}} />
+        <Tab.Item title="cart" titleStyle={{fontSize: 12}} />
       </Tab>
       <TabView value={index} onChange={setIndex} animationType="timing">
         <TabView.Item style={{backgroundColor: 'red', width: '100%'}}>
@@ -127,17 +116,21 @@ function Index({props, navigation}: any) {
         </TabView.Item>
       </TabView>
 
-      <TextInput
-        placeholder="Enter your username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        placeholder="Enter your age"
-        value={age}
-        onChangeText={setAge}
-      />
-      <Button title="Login" onPress={handleLogin} />
+      {!userStore.isLogin ? (
+        <>
+          <TextInput
+            placeholder="Enter your username"
+            value={username}
+            onChangeText={setUsername}
+          />
+          <TextInput
+            placeholder="Enter your age"
+            value={age}
+            onChangeText={setAge}
+          />
+          <Button title="Login" onPress={handleLogin} />
+        </>
+      ) : null}
 
       <Text style={{color: '#000'}}>{BASE_URL}</Text>
       <Text style={{color: '#000'}}>id：{test.id}</Text>
@@ -147,7 +140,7 @@ function Index({props, navigation}: any) {
       <Text style={{color: '#000'}}>created_at：{test.created_at}</Text>
       <Text style={{color: '#000'}}>updated_at：{test.updated_at}</Text>
       <Button
-        title="Go to Mine"
+        title="Go to Classify"
         onPress={() => navigation.navigate('Classify')}
       />
       <Button
@@ -194,7 +187,10 @@ function Index({props, navigation}: any) {
         <SpeedDial.Action
           icon={{name: 'delete', color: '#fff'}}
           title="Delete"
-          onPress={() => console.log('Delete Something')}
+          onPress={() => {
+            console.log('Delete Something');
+            navigation.navigate('Classify');
+          }}
         />
       </SpeedDial>
     </SafeAreaProvider>

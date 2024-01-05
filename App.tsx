@@ -7,10 +7,10 @@ import {Provider} from 'mobx-react';
 import userStore from './src/store/user';
 import {RootSiblingParent} from 'react-native-root-siblings';
 function App(): React.JSX.Element {
-  useEffect(() => {
-    // Load user information when the app starts
-    userStore.loadUser();
-  }, []);
+  // useEffect(() => {
+  //   // Load user information when the app starts
+  //   userStore.loadUser();
+  // }, []);
 
   const isDarkMode = useColorScheme() === 'dark';
 

@@ -15,6 +15,7 @@ let Px2Dp = function px2dp(px) {
 };
 
 const getFileType = name => {
+  // 获取文件类型
   if (!name) return false;
   var imgType = ['gif', 'jpeg', 'jpg', 'bmp', 'png'];
   var videoType = [
@@ -41,18 +42,22 @@ const getFileType = name => {
 };
 
 const storeStringData = async (key, value) => {
+  // 存储字符串数据
   try {
     await AsyncStorage.setItem(key, value);
   } catch (e) {
-    // saving error
+    // 存储失败
+    console.log('storeStringData失败');
   }
 };
 const getFileName = name => {
+  // 获取文件名
   const FILE = Platform.OS === 'ios' ? '' : 'file://';
   return FILE + RNFS.DocumentDirectoryPath + '/' + name + '.png';
 };
 
 const compareVersion = (curent, recommend) => {
+  // 比较版本号
   let a = curent.split('.');
   let b = recommend.split('.');
   for (var i = 0; i < Math.max(a.length, b.length); i++) {
@@ -72,6 +77,7 @@ const compareVersion = (curent, recommend) => {
 };
 
 const downloadAndGetImageUrl = (name, source_url) => {
+  // 下载并获取图片URL
   let fileName = getFileName(name);
   return RNFS.exists(fileName)
     .then(response => {
@@ -98,31 +104,37 @@ const downloadAndGetImageUrl = (name, source_url) => {
 
 //判断类型
 const judgeType = data => {
+  // 判断数据类型
   return Object.prototype.toString.call(data);
 };
 
 const storeObjData = async (key, value) => {
+  // 存储对象数据
   try {
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
-    // saving error
+    // 存储失败
+    console.log('storeObjData失败');
   }
 };
 
 const getStringData = async key => {
+  // 获取字符串数据
   try {
     const value = await AsyncStorage.getItem(key);
     if (value !== null) {
-      // value previously stored
+      // 已存储值
       return value;
     }
   } catch (e) {
-    // error reading value
+    // 读取失败
+    console.log('getStringData失败');
   }
 };
 
 const isEmpty = data => {
+  // 判断数据是否为空
   switch (typeof data) {
     case 'undefined':
       return true;
@@ -147,22 +159,26 @@ const isEmpty = data => {
 };
 
 const getObjData = async key => {
+  // 获取对象数据
   try {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
-    // error reading value
+    // 读取失败
+    console.log('getObjData失败');
   }
 };
 
 const clearStorage = async (key) => {
+  // 清除存储
   try {
-    await AsyncStorage.removeItem('@MyApp_key')
+    key ? await AsyncStorage.removeItem(key) : await AsyncStorage.clear();
+
   } catch (e) {
-    // remove error
+    // 清除失败
+    console.log('clearStorage失败');
   }
 }
-
 
 
 export default {

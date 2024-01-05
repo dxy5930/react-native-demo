@@ -7,7 +7,7 @@ function Classify({navigation}: any) {
       <Button
         title="Go to Details"
         onPress={() => {
-          navigation.navigate('Mine');
+          navigation.push('Detail');
           console.log('111');
         }}
       />
