@@ -97,14 +97,32 @@ const downloadAndGetImageUrl = (name, source_url) => {
 //判断类型
 const judgeType = data => {
   // 判断数据类型
-  return Object.prototype.toString.call(data);
+  if (Object.prototype.toString.call(data) === '[object String]') {
+    return 'String';
+  } else if (Object.prototype.toString.call(data) === '[object Number]') {
+    return 'Number';
+  } else if (Object.prototype.toString.call(data) === '[object Boolean]') {
+    return 'Boolean';
+  } else if (Object.prototype.toString.call(data) === '[object Object]') {
+    return 'Object';
+  } else if (Object.prototype.toString.call(data) === '[object Array]') {
+    return 'Array';
+  } else if (Object.prototype.toString.call(data) === '[object Function]') {
+    return 'Function';
+  } else if (Object.prototype.toString.call(data) === '[object Null]') {
+    return 'Null';
+  } else if (Object.prototype.toString.call(data) === '[object Undefined]') {
+    return 'Undefined';
+  } else {
+    return 'Unknown';
+  }
 };
 
 const storeData = async (key, value) => {
   let jsonValue = value;
   // 存储对象数据
   try {
-    if (judgeType(value) != '[object String]') {
+    if (judgeType(value) != 'String') {
       jsonValue = JSON.stringify(value);
     }
 
