@@ -136,27 +136,27 @@ const storeData = async (key, value) => {
 
 const isEmpty = data => {
   // 判断数据是否为空
-  switch (typeof data) {
-    case 'undefined':
+  const type = judgeType(data);
+  switch (type) {
+    case 'Undefined':
       return true;
-    case 'string':
-      if (data.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length == 0)
-        return true;
-      break;
-    case 'boolean':
-      if (!data) return true;
-      break;
-    case 'number':
-      if (0 === data || isNaN(data)) return true;
-      break;
-    case 'object':
-      if (null === data || data.length === 0) return true;
-      for (var i in data) {
-        return false;
-      }
+    case 'String':
+      return data.trim() === '';
+    case 'Boolean':
+      return !data;
+    case 'Number':
+      return data === 0 || Number.isNaN(data);
+    case 'Object':
+      return data === null || Object.keys(data).length === 0;
+    case 'Array':
+      return data.length === 0;
+    case 'Null':
       return true;
+    case 'Unknown':
+      return true;
+    default:
+      return false;
   }
-  return false;
 };
 
 const getData = async key => {
