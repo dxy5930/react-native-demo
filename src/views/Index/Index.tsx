@@ -8,13 +8,10 @@ import {
   CheckBox,
   Dialog,
   Button,
-  Rating,
-  Skeleton,
   Text,
   Tab,
   TabView,
   SpeedDial,
-  Tooltip,
 } from '@rneui/themed';
 import {Header as HeaderRNE, HeaderProps, Icon} from '@rneui/themed';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -23,6 +20,7 @@ import {BASE_URL} from 'react-native-dotenv';
 import {observer} from 'mobx-react';
 import Toast from 'react-native-root-toast';
 import userStore from '../../store/user';
+import tool from '../../utils/index';
 
 function Index({props, navigation}: any) {
   const [test, setTest] = useState<resDemo>({} as resDemo);
@@ -39,7 +37,7 @@ function Index({props, navigation}: any) {
   }, []);
 
   const handleLogin = () => {
-    const user = {username, age};
+    const user = {username, age: Number(age)};
     userStore.login(user);
     Toast.show('登录成功', {
       position: Toast.positions.CENTER,
@@ -133,6 +131,7 @@ function Index({props, navigation}: any) {
       ) : null}
 
       <Text style={{color: '#000'}}>{BASE_URL}</Text>
+      <Text style={{color: '#000'}}>{tool.judgeType({a:'2'}) }</Text>
       <Text style={{color: '#000'}}>id：{test.id}</Text>
       <Text style={{color: '#000'}}>tag：{test.tag}</Text>
       <Text style={{color: '#000'}}>name：{test.name}</Text>

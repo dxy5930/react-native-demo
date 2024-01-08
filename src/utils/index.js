@@ -41,15 +41,7 @@ const getFileType = name => {
   }
 };
 
-const storeStringData = async (key, value) => {
-  // 存储字符串数据
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (e) {
-    // 存储失败
-    console.log('storeStringData失败');
-  }
-};
+
 const getFileName = name => {
   // 获取文件名
   const FILE = Platform.OS === 'ios' ? '' : 'file://';
@@ -108,30 +100,21 @@ const judgeType = data => {
   return Object.prototype.toString.call(data);
 };
 
-const storeObjData = async (key, value) => {
+const storeData = async (key, value) => {
+  let jsonValue = value;
   // 存储对象数据
   try {
-    const jsonValue = JSON.stringify(value);
+    if (judgeType(value) != '[object String]') {
+      jsonValue = JSON.stringify(value);
+    }
+
     await AsyncStorage.setItem(key, jsonValue);
   } catch (e) {
     // 存储失败
-    console.log('storeObjData失败');
+    console.log('storeObjData失败', e);
   }
 };
 
-const getStringData = async key => {
-  // 获取字符串数据
-  try {
-    const value = await AsyncStorage.getItem(key);
-    if (value !== null) {
-      // 已存储值
-      return value;
-    }
-  } catch (e) {
-    // 读取失败
-    console.log('getStringData失败');
-  }
-};
 
 const isEmpty = data => {
   // 判断数据是否为空
@@ -158,16 +141,17 @@ const isEmpty = data => {
   return false;
 };
 
-const getObjData = async key => {
+const getData = async key => {
   // 获取对象数据
   try {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (e) {
     // 读取失败
-    console.log('getObjData失败');
+    console.log('getObjData失败', e);
   }
 };
+
 
 const clearStorage = async (key) => {
   // 清除存储
@@ -189,10 +173,8 @@ export default {
   Px2Dp,
   FontSize,
   getFileType,
-  storeStringData,
-  storeObjData,
-  getStringData,
-  getObjData,
+  storeData,
+  getData,
   clearStorage,
   downloadAndGetImageUrl,
   compareVersion,
