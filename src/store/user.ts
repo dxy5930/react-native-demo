@@ -16,6 +16,7 @@ class UserStore {
             loadUser: action,
         });
     }
+
     @action
     login(user: userModel.userInfo) {
         this.user = user;
