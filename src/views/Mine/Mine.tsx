@@ -1,9 +1,10 @@
 import {Button, Text, View} from 'react-native';
 import {observer} from 'mobx-react';
-import userStore from '../../store/user';
+import useStore from '../../store/index';
 import {useEffect, useState} from 'react';
 
 function Mine({navigation}: any) {
+  const {userStore} = useStore();
   const handleLogout = () => {
     userStore.logout();
   };

@@ -19,7 +19,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {BASE_URL} from 'react-native-dotenv';
 import {observer} from 'mobx-react';
 import Toast from 'react-native-root-toast';
-import userStore from '../../store/user';
+import useStore from '../../store/index';
 import tool from '../../utils/index';
 
 function Index({props, navigation}: any) {
@@ -31,6 +31,8 @@ function Index({props, navigation}: any) {
   const [open1, setOpen1] = useState(false);
   const [username, setUsername] = useState('');
   const [age, setAge] = useState('');
+
+  const {userStore} = useStore();
 
   useEffect(() => {
     getDataTest();
@@ -131,7 +133,7 @@ function Index({props, navigation}: any) {
       ) : null}
 
       <Text style={{color: '#000'}}>{BASE_URL}</Text>
-      <Text style={{color: '#000'}}>{tool.judgeType({a:'2'}) }</Text>
+      <Text style={{color: '#000'}}>{tool.judgeType({a: '2'})}</Text>
       <Text style={{color: '#000'}}>id：{test.id}</Text>
       <Text style={{color: '#000'}}>tag：{test.tag}</Text>
       <Text style={{color: '#000'}}>name：{test.name}</Text>
