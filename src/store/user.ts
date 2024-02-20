@@ -1,6 +1,6 @@
 // userStore.js
 
-import { action, makeAutoObservable, observable } from 'mobx';
+import { action, makeAutoObservable, runInAction } from 'mobx';
 import tool from '../utils/index';
 import * as userModel from '../common/types/userStore';
 class UserStore {
@@ -8,13 +8,8 @@ class UserStore {
     isLogin = false;
 
     constructor() {
-        makeAutoObservable(this, {
-            user: observable,
-            isLogin: observable,
-            login: action,
-            logout: action,
-            loadUser: action,
-        });
+        makeAutoObservable(this);
+        this.loadUser();
     }
 
     @action
@@ -37,11 +32,13 @@ class UserStore {
     async loadUser() {
         const userJSON = await tool.getData('user');
         if (userJSON) {
-            this.login(userJSON);
+            runInAction(() => {
+                this.login(userJSON);
+            });
         }
     }
 }
 
 const userStore = new UserStore();
-userStore.loadUser();
 export default userStore;
+
