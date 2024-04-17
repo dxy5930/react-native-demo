@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import userStore from './user';
+import userStore from './user.ts';
 
 class RootStore {
     userStore = userStore;

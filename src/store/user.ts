@@ -1,8 +1,7 @@
 // userStore.js
 
 import { action, makeAutoObservable, runInAction } from 'mobx';
-import tool from '../utils/index';
-import * as userModel from '../common/types/userStore';
+import tool from '../utils/index.js';
 class UserStore {
     user = null;
     isLogin = false;
@@ -13,7 +12,7 @@ class UserStore {
     }
 
     @action
-    login(user: userModel.userInfo) {
+    login(user: UserInfo) {
         this.user = user;
         this.isLogin = true;
         tool.storeData('user', user);

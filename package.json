@@ -33,6 +33,7 @@
     "react-native": "0.73.1",
     "react-native-config": "^1.5.1",
     "react-native-dotenv": "^3.4.9",
+    "react-native-fast-image": "^8.6.3",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.14.0",
     "react-native-root-toast": "^3.5.1",
