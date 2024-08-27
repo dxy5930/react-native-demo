@@ -1,13 +1,9 @@
-export function debounce(delay) {
-    let timerId;
-    return function(target, name, descriptor) {
-      const original = descriptor.value;
-      descriptor.value = function(...args) {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => {
-          original.apply(this, args);
-        }, delay);
-      };
-      return descriptor;
-    };
-  }
+export function debounce(fn, delay: number) {
+  let timer = null;
+  return function (...args) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn.apply(this.args);
+    }, delay);
+  };
+}

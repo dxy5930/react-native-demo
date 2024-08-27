@@ -1,16 +1,11 @@
-export function throttle(interval) {
-    let canRun = true;
-    return function(target, name, descriptor) {
-      const original = descriptor.value;
-      descriptor.value = function(...args) {
-        if (canRun) {
-          canRun = false;
-          original.apply(this, args);
-          setTimeout(() => {
-            canRun = true;
-          }, interval);
-        }
-      };
-      return descriptor;
-    };
-  }
+export function throttle(fn, delay: number) {
+  let throttle = false;
+  return function (...args) {
+    if (throttle) return;
+    throttle = true;
+    setTimeout(() => {
+      fn.apply(this, args);
+      throttle = false;
+    }, delay)
+  };
+}
